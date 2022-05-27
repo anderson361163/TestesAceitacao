@@ -11,6 +11,8 @@ import br.com.alura.leilao.lances.CadastroLeilaoPage;
 public class LeiloesPage {
 
 	private static final String URL_CADASTRO_LEILOES = "http://localhost:8080/leiloes/new";
+	private static final String URL_LEILOES = "http://localhost:8080/leiloes";
+	
 	private WebDriver browser;
 	
 	public LeiloesPage(WebDriver browser) {
@@ -27,6 +29,8 @@ public class LeiloesPage {
 	}
 
 	public boolean isLeilaoCadastrado(String nome, String valor, String data) {
+		
+		//tuiliza selecotr de css
 		WebElement linhaDaTabela = this.browser.findElement(By.cssSelector("#tabela-leiloes tbody tr:last-child"));
 		
 		WebElement colunaNome = linhaDaTabela.findElement(By.cssSelector("td:nth-child(1)"));
@@ -36,6 +40,11 @@ public class LeiloesPage {
 		return colunaNome.getText().equals(nome)
 				&& colunaDataAbertura.getText().equals(data)
 				&& colunaValorInicial.getText().equals(valor);
+	}
+
+	public boolean isPaginaAtual() {
+		
+		return browser.getCurrentUrl().contentEquals(URL_LEILOES);
 	}
 
 }
